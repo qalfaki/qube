@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
     	<div className="App">
-     		{routes.map(route=> <Route {...route} />)}
+     		{routes.map((route,idx)=> <Route key={idx} {...route} />)}
 			<footer>
       			<small className="footer">
     				copyrights reserved @Qube

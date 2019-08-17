@@ -1,7 +1,7 @@
-import {Todo, Goals, Home, Login, Signup, Reset} from './components';
+import {Todo, Goals, Home, Login, Signup, Reset, Archive} from './components';
 const routes = [
   {
-	path: '/to-dos',
+	path: '/to-do',
 	component: Todo
   },
   {
@@ -10,13 +10,12 @@ const routes = [
   },
   {
 	path: '/home',
-	component: Home
-
+	component: Home,
+	exect: true
   },
   {
-	path: '/',
-	component: Login,
-	exect: true
+	path: '/login',
+	component: Login
   },
   {
 	path: '/signup',
@@ -25,6 +24,10 @@ const routes = [
   {
 	path: '/reset',
 	component: Reset
+  },
+  {
+  	path: '/archive',
+  	component: Archive
   }]
 
 export default routes;

@@ -61,16 +61,15 @@ html, body {
 }
 
 .link {
-  font-style: italic;
-  font-weight: 300;
-  font-size: 18px;
-  line-height: 21px;
-  /* identical to box height */
-
-  text-align: center;
-  letter-spacing: 0.67px;
-  color: #FFFFFF;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	font-style: italic;
+  	font-weight: 300;
+  	font-size: 18px;
+  	line-height: 21px;
+  	/* identical to box height */
+  	text-align: center;
+  	letter-spacing: 0.67px;
+  	color: #FFFFFF;
+  	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .link:hover .link:focus {
@@ -80,6 +79,209 @@ html, body {
 
 .btn-wrapper {
 	padding-top: 20px;
+}
+
+
+/*TO-DO styles*/
+
+.todo-list {
+	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	justify-content: center;
+  	color: white;
+}
+
+.todo {
+	display: flex;
+	align-items: center;
+	margin: 1rem 0;
+}
+
+.todo-is-completed .checkbox {
+	color: #000;
+	background: #fff;
+}
+
+.todo-is-completed input {
+	text-decoration: line-through;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color .2s ease-in-out;
+  border: 1px solid #fff;
+}
+
+.checkbox:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.checkbox-checked {
+  color: #000;
+  background: #fff;
+}
+
+.todo-ul {
+  list-style: none;
+  padding: 0;
+  line-height: 2rem;
+  width: 500px;
+}
+
+input {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 1.4rem;
+  outline: none;
+  width: 100%;
+}
+
+
+/* Side bar styles */
+
+.sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    top: 55px;
+    width: 400px;   /*set to 0 to toggle back*/
+    height: calc(100% - 100px);
+    /*margin-left: -400px;    set to un comment to toggle back*/
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background: #433939;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/* page content style */
+.page-content {
+    z-index: 1001;
+    width: calc(100% - 400px);
+    position: relative;
+    padding-top: 40px;
+    height: auto;
+    margin-left: 400px;
+}
+
+.wrapper {
+    padding-right: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+
+/* Navigation */
+.navigation {
+	margin-top: 200px;
+	list-style: none;
+	line-height: 50px;
+	text-align: center;
+	padding: 0;
+
+}
+
+.navigation .link {
+	font-style: italic;
+	font-weight: 300;
+	font-size: 24px!important;
+	line-height: 28px;
+	text-align: center;
+	letter-spacing: 0.67px;
+}
+
+/* instructions */
+
+
+.cheat-sheet-container {
+	position: relative;
+   	width: 279px;
+  	height: 100px;
+  	float: right;
+  	margin-right: 20px;
+  	top: 200px;
+  	background: #BF7474;
+  	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* navbar */
+
+nav.navbar {
+	padding: 5px!important;
+	border-bottom: 1px solid #FFFFFF;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/*humburger*/
+
+/*$('.btn-xl').on('click', (e)=>{e.preventDefault();
+	$(this).toggleClass('menu-btn_active');
+})
+*/
+.btn-circle.btn-xl {
+	cursor: pointer;
+    width: 43px; 
+    height: 43px; 
+    padding: 10px 16px; 
+    border-radius: 35px; 
+    font-size: 12px; 
+    text-align: center;
+    background-color: #fff;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+}
+
+
+.btn-xl span {
+	margin-left: -10px;
+}
+.btn-xl span,
+.btn-xl span::before,
+.btn-xl span::after {
+  position: absolute;
+  top: 50%; margin-top: -1px;
+  width: 20px;
+  height: 2px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #BF7474;
+}
+.btn-xl span::before,
+.btn-xl span::after {
+  content: '';
+  display: block;
+  transition: 0.8s;
+}
+.btn-xl span::before {
+  transform: translateY(-5px);
+}
+.btn-xl span::after {
+  transform: translateY(5px);
+}
+
+.menu-btn_active span:before {
+  transform: rotate(-35deg);
+  width: 10px;
+  transform-origin: left bottom;
+}
+.menu-btn_active span:after {
+  transform: rotate(35deg);
+  width: 10px;
+  transform-origin: left top;
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -100,8 +302,10 @@ html, body {
 @media only screen and (min-width: 768px) {
 	.login-input {
 	width: 200px;
-}
-
+	}
+	.page-content {
+		width: calc(100% - 400px);
+	}
 } 
 
 /* Large devices (laptops/desktops, 992px and up) */

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import logo from '../assets/images/logo196x143.png';
-import { Row, Col } from 'reactstrap';
+// import { Row, Col } from 'reactstrap';
 
 
 const Login = (props) =>{
