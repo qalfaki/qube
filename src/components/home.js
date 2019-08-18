@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from './sidebar.js';
 import Avatar from './avatar.js';
+import Todo from './todo.js';
 import logo from '../assets/images/logo196x143.png';
 
 const Home = (props) =>{
@@ -38,6 +39,7 @@ const Home = (props) =>{
   		<div className="wrapper">
 		<Sidebar toggle={showSideBar}/>
 		<div className={showSideBar ? "page-content toggle-page-content": "page-content"}>
+		<Todo/>
 			<div className="cheat-sheet-container">
 			<h5>CHEAT SHEET</h5>
 			<p>SAVE: Ctl + s</p>
@@ -48,12 +50,3 @@ const Home = (props) =>{
 }
 
 export default Home
-
-// <form className="todo-list">
-//   			<ul>
-//   				<div className="todo">
-//   					<div className="checkbox"></div>
-//   					<input type="text" value="Pickup dry cleaning"/>
-//   				</div>
-//   			</ul>
-// </form>
