@@ -13,7 +13,7 @@ const Login = (props) =>{
     	  	    <input className="input-field form-control d-block mx-auto" type="email" id="email" onChange={(e)=>setEmail(e.target.value)} value={email} aria-describedby="emailHelp" placeholder="EMAIL"/>
     	  	    <input className="input-field form-control d-block mx-auto" type="password" id="password" onChange={(e)=>setPassword(e.target.value)} value={password} aria-describedby="emailHelp" placeholder="PASSWORD"/>
     	  	    <div className="btn-wrapper">
-    	  	    <Link to="/signup" className="link">SIGNUP</Link>
+    	  	    <Link to="/signup" className="link">SIGNUP</Link> <span className="error-text">|</span> <Link to="/reset" className="link">RESET PASSWORD</Link>
     	  	    		<button type="button" onClick={(e)=>{
                     setError(!emailValid && !passwordValid ? 'Invalid Credintials': !emailValid ? 'Invalid Email': !passwordValid ? 'password must be at least 6 characters':'')
                   } } className="btn float-right auth-btns">LOGIN</button>
