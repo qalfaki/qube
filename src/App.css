@@ -154,9 +154,9 @@ input {
     z-index: 1000;
     position: fixed;
     top: 55px;
-    width: 400px;   /*set to 0 to toggle back*/
+       /*set to 0 to toggle back*/
     height: calc(100% - 100px);
-    /*margin-left: -400px;    set to un comment to toggle back*/
+    margin-left: -400px;   /*set to un comment to toggle back*/
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -170,11 +170,23 @@ input {
 /* page content style */
 .page-content {
     z-index: 1001;
-    width: calc(100% - 400px);
     position: relative;
     padding-top: 40px;
     height: auto;
-    margin-left: 400px;
+}
+
+
+.toggle-sidebar {
+	margin-left: 0;
+	width: 400px;
+	 -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.toggle-page-conetent {
+	width: calc(100% - 400px);
 }
 
 .wrapper {
@@ -209,10 +221,10 @@ input {
 
 
 .cheat-sheet-container {
-	position: relative;
+	position: absolute;
    	width: 279px;
   	height: 100px;
-  	float: right;
+  	right: 0;
   	margin-right: 20px;
   	top: 200px;
   	background: #BF7474;
@@ -221,7 +233,8 @@ input {
 
 /* navbar */
 
-nav.navbar {
+nav.nav-bar {
+	margin: 0;
 	padding: 5px!important;
 	border-bottom: 1px solid #FFFFFF;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -230,10 +243,6 @@ nav.navbar {
 
 /*humburger*/
 
-/*$('.btn-xl').on('click', (e)=>{e.preventDefault();
-	$(this).toggleClass('menu-btn_active');
-})
-*/
 .btn-circle.btn-xl {
 	cursor: pointer;
     width: 43px; 
@@ -264,7 +273,7 @@ nav.navbar {
 .btn-xl span::after {
   content: '';
   display: block;
-  transition: 0.8s;
+  transition: 0.3s;
 }
 .btn-xl span::before {
   transform: translateY(-5px);
@@ -284,6 +293,41 @@ nav.navbar {
   transform-origin: left top;
 }
 
+
+/* Avatar */
+
+.avatar {
+	margin-right: 8px;
+	position: absolute;
+	cursor: pointer;
+    right: 0%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.avatar img {
+	width: 43px;
+    height: 43px;
+    border-radius: 50%;
+}
+
+.logo {
+	width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.avatar-menu {
+	font-size: 12px;
+	padding-top: 15px;
+	list-style: none;
+	background: #fff;
+	width: fit-content;
+	float: right;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 	.input-field {
@@ -294,8 +338,16 @@ nav.navbar {
 	}
 }
 
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 992px) {
+	.cheat-sheet-container {
+		display: none;
+	}
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -306,7 +358,10 @@ nav.navbar {
 	.page-content {
 		width: calc(100% - 400px);
 	}
-} 
+		/*.cheat-sheet-container {
+		display: none;
+	}*/
+}
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
