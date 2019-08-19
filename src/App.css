@@ -72,7 +72,7 @@ html, body {
   	text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-a:hover a:focus {
+a.link:hover {
 	color: #ccc!important;
 	text-decoration: none!important;
 }
@@ -334,6 +334,67 @@ nav.nav-bar {
 	color: #fff;
 }
 
+.signup-form-wrapper {
+	max-width: 600px;
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.input-fields {
+	/*display: inline-block!important;*/
+}
+
+.uploader-wrapper {
+  width: 171px;
+  height: 215px;
+  border-radius: 2px;
+	margin:0;
+	margin-top: 25px;
+  background: #FDEDED;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-left: 25px;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.uploader-wrapper input[type=file] {
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 171px;
+  height: 215px;
+  cursor: pointer;
+
+}
+
+
+.plus-icon {
+  position: ;
+  margin: 38%;
+  /*height: 70px;*/
+  width: 70px;
+}
+
+.horizontal {
+  width: 50px;
+  height: 1px;
+  background: #222;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.vertical {
+  width: 50px;
+  height: 1px;
+  background: #222;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 	.input-field {
@@ -345,6 +406,8 @@ nav.nav-bar {
 }
 
 
+
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
 
@@ -354,6 +417,14 @@ nav.nav-bar {
 	.cheat-sheet-container {
 		display: none;
 	}
+
+	.top-height {
+		margin-top: 50px!important;
+	}
+
+  .footer {
+    bottom: unset;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

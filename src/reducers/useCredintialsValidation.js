@@ -12,7 +12,7 @@ const useCredintialsValidation = () => {
   const emailReducer = (state, action) => {
     state = action;
     setEmailValid(validateEmail(state));
-    return action;
+    return state;
   };
 
   const passwordReducer = (state, action) =>{
@@ -20,7 +20,7 @@ const useCredintialsValidation = () => {
     if (state.length >= 6) {
       setPasswordValid(true);
     }
-    return action;
+    return state;
   }
   const [email, setEmail] = useReducer(emailReducer, "");
   const [password, setPassword] = useReducer(passwordReducer, "");
