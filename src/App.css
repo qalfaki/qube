@@ -86,17 +86,18 @@ a.link:hover {
 
 .todo-list {
 	display: flex;
-  	flex-direction: column;
-  	align-items: center;
-  	justify-content: center;
-  	color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding-left: 12px!important;
 }
 
 .todo {
 	display: flex;
 	align-items: center;
 	margin: 1rem 0;
-	font-size: 50px;
+	font-size: 30px;
 }
 
 .todo-is-completed .checkbox {
@@ -109,12 +110,12 @@ a.link:hover {
 }
 
 .checkbox {
-  width: 18px;
-  height: 18px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   margin-right: 10px;
   cursor: pointer;
-  font-size: 10px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,6 +175,10 @@ input {
     position: relative;
     height: auto;
     widows: 100%;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 
@@ -186,8 +191,13 @@ input {
     transition: all 0.5s ease;
 }
 
-.toggle-page-conetent {
+.toggle-page-content {
 	width: calc(100% - 400px);
+  margin-left: 400px!important;
+   -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .wrapper {
@@ -321,11 +331,10 @@ nav.nav-bar {
 
 .avatar-menu {
 	font-size: 12px;
-	padding-top: 15px;
-	list-style: none;
 	background: #fff;
-	width: fit-content;
-	float: right;
+  right: 0;
+  top: 60;
+  position: absolute;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -341,9 +350,11 @@ nav.nav-bar {
   justify-content: space-around;
 }
 
-.input-fields {
-	/*display: inline-block!important;*/
-}
+::placeholder {
+  opacity: 0.4;
+  color: #fff;
+  font-size: 22px;
+};
 
 .uploader-wrapper {
   width: 171px;
@@ -422,9 +433,9 @@ nav.nav-bar {
 		margin-top: 50px!important;
 	}
 
-  .footer {
+/*  .footer {
     bottom: unset;
-  }
+  }*/
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

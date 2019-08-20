@@ -24,26 +24,21 @@ const Home = (props) =>{
 		</div>
 
 	</nav>
-	  		 {
-          showMenu
-            ? (
-              <div className="avatar-menu">
-    			<a class="dropdown-item" href="#">Account</a>
-    			<a class="dropdown-item" href="/login">logout</a>
-              </div>
-            )
-            : (
-              null
-            )
-        }
   		<div className="wrapper">
+
 		<Sidebar toggle={showSideBar}/>
 		<div className={showSideBar ? "page-content toggle-page-content": "page-content"}>
-		<Todo/>
+		 {
+          showMenu
+            ? (<div className="avatar-menu">
+    			<a className="dropdown-item" href="/login">logout</a>
+              </div>): (null)
+        	}
 			<div className="cheat-sheet-container">
 			<h5>CHEAT SHEET</h5>
 			<p>SAVE: Ctl + s</p>
-			</div>
+		</div>
+		<Todo/>
 		</div>
   	</div>
   </div>)
