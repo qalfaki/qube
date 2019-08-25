@@ -13,10 +13,9 @@ const Reset = (props) =>{
   const handleClick = ()=> {
     if (emailValid) {
       props.firebase.resetPassword(email).then(()=> {
-        console.log('the resetPassword was fired')
         setError('A rest link was sent your email')
         setTimeout(()=>{props.history.push('/login')}, 5000);
-      }).catch(error=>setError(error.message))
+      }).catch(error=> setError(error.message))
     }
   }
 
@@ -39,6 +38,7 @@ const Reset = (props) =>{
 
 const ResetForm = compose(
   withFirebase,
-  withRouter)(Reset);
+  withRouter
+)(Reset);
 
 export default ResetForm;

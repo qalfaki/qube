@@ -11,7 +11,8 @@ const Login = (props) =>{
   const handleClick = () =>{
     if (emailValid && passwordValid) {
       props.firebase.signIn(email, password).then((user)=>{
-        props.history.push('/home')
+        props.history.push('/home');
+        props.stateHandler(user);
       }).catch((error)=>{
         setError(error.message);
       })
@@ -35,8 +36,6 @@ const Login = (props) =>{
   	)
 }
 
-
-/* compining HOC to abstract some logic */
 
 const LoginPage = compose (
   withFirebase,

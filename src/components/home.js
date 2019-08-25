@@ -7,6 +7,14 @@ import logo from '../assets/images/logo196x143.png';
 const Home = (props) =>{
 	const [showMenu, setShowMenu] = React.useState(false);
 	const [showSideBar, setShowSideBar] = React.useState(false);
+
+	const handleClick = (e) => {
+	  e.preventDefault();
+	  props.firebase.signOut().then(()=>{
+	  	props.stateHandler(null)
+	  })
+	}
+
   	return (<div>
 	<nav className="nav-bar row co-12">
 		<div className="col-4">
@@ -22,7 +30,6 @@ const Home = (props) =>{
 			<Avatar />
 		</span>
 		</div>
-
 	</nav>
   		<div className="wrapper">
 
@@ -31,7 +38,9 @@ const Home = (props) =>{
 		 {
           showMenu
             ? (<div className="avatar-menu">
-    			<a className="dropdown-item" href="/login">logout</a>
+    			<a className="dropdown-item" href="#" onClick={
+    				handleClick
+    			}>logout</a>
               </div>): (null)
         	}
 			<div className="cheat-sheet-container">
