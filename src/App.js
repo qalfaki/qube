@@ -18,11 +18,14 @@ const App = (props) => {
   //  the redirection acts a global intercepter
   //  and will load the relvant page based on the state
   const {user, setUser} = useStorage();
+  const [isLoading, setIsloading] = React.useState(false);
 
   return (
     <Router>
     	<div className="App">
-     	  {routes.map((route, idx)=> <Route key={idx}  path={route.path} render={(props)=> <route.component {...props} currentUser={user} stateHandler = {setUser}/>} />)}
+        {isLoading ? <span className='overlay'>
+        <div className='spinner'><i></i></div></span>: null}
+     	  {routes.map((route, idx)=> <Route key={idx}  path={route.path} render={(props)=> <route.component {...props} setIsloading={setIsloading} currentUser={user} stateHandler = {setUser}/>} />)}
         <Route path='/'>
           <Redirect to="/home" />
         </Route>
