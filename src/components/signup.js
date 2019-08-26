@@ -30,29 +30,35 @@ const SignupBase = (props) =>{
         if (!(emailValid && nameValid && passwordConfirmed)) {
             return
         }
+        props.setIsloading(true);
         props.firebase.signUp(email, password).then(authUser => {
-          // Create a user in your Firebase realtime database
-          console.log('the authUser ', authUser);
-          // upload the photo
-          props.firebase.user(authUser.user.uid).set({
-            name: name,
-            email: email
-          });
-
+          props.setIsloading(false);
+          let currentUser = props.firebase.auth.currentUser;
           if (file) {
             props.firebase.upload(authUser.user.uid, file).then(()=>{
               props.firebase.user(authUser.user.uid).set({
                 name: name,
                 email: email,
-                photoUrl: `${authUser.user.uid}/profilePicture/${file.name}`
+                photoURL: `${authUser.user.uid}/profilePicture/${file.name}`
+              }).then(()=>{
+                currentUser.updateProfile({
+                  displayName: name,
+                  photoURL: `${authUser.user.uid}/profilePicture/${file.name}`
+                }).then(()=>{
+                     console.log('the currentUser .user ', currentUser.user)
+                  props.stateHandler(currentUser.user);
+                });
               });
             }).catch((error)=>{
                 setError(error.message)
             })
           }
-          props.firebase.user(authUser.user.uid).set({
+          currentUser.updateProfile({
             name: name,
             email: email
+          }).then(()=>{
+            console.log('the currentUser .user ', currentUser.user)
+            props.stateHandler(currentUser.user);
           });
           props.history.push('/home');
       })

@@ -9,10 +9,12 @@ const Login = (props) =>{
   const {password, setPassword, passwordValid, email, setEmail, emailValid} = useCredintialsValidation();
   const [error, setError] = React.useState('');
   const handleClick = () =>{
+    props.setIsloading(true);
     if (emailValid && passwordValid) {
-      props.firebase.signIn(email, password).then((user)=>{
+      props.firebase.signIn(email, password).then((data)=>{
+        props.setIsloading(false);
         props.history.push('/home');
-        props.stateHandler(user);
+        props.stateHandler(data.user);
       }).catch((error)=>{
         setError(error.message);
       })

@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import routes from './routes';
 import './App.css';
+import useStorage from './reducers/useStorage.js';
 
 const App = (props) => {
   // global state
@@ -16,7 +17,8 @@ const App = (props) => {
   //  <Redirect />
   //  the redirection acts a global intercepter
   //  and will load the relvant page based on the state
-  const [user, setUser] = React.useState(null);
+  const {user, setUser} = useStorage();
+
   return (
     <Router>
     	<div className="App">
