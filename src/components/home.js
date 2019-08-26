@@ -3,6 +3,7 @@ import Sidebar from './sidebar.js';
 import Avatar from './avatar.js';
 import Todo from './todo.js';
 import logo from '../assets/images/logo196x143.png';
+import { withFirebase } from '../api';
 
 const Home = (props) =>{
 	const [showMenu, setShowMenu] = React.useState(false);
@@ -27,7 +28,7 @@ const Home = (props) =>{
 		</div>
 		<div className="col-4">
 		<span onClick={()=>setShowMenu(!showMenu)}>
-			<Avatar />
+			<Avatar imgSrc={props.currentUser ? props.currentUser.photoURL: null}/>
 		</span>
 		</div>
 	</nav>
@@ -47,10 +48,10 @@ const Home = (props) =>{
 			<h5>CHEAT SHEET</h5>
 			<p>SAVE: Ctl + s</p>
 		</div>
-		<Todo/>
+		<Todo name={props.currentUser ? props.currentUser.displayName: ''}/>
 		</div>
   	</div>
   </div>)
 }
 
-export default Home
+export default withFirebase(Home)
