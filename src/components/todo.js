@@ -1,8 +1,12 @@
 import React from 'react';
 import useTodoListActions from '../reducers/useTodoListActions.js'
+import { withFirebase } from '../api';
 
 
 const Todo = (props) =>{
+  let defaultKey = {s: false, ctl: false}
+  const [key, setKey] = React.useState(Object.assign({}, defaultKey));
+  const [todoListName, setTodoListName] = React.useState('');
 
   const {isValid, setIsValid, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo} = useTodoListActions();
   const enterKeyPressed = (e)=>{
@@ -14,36 +18,75 @@ const Todo = (props) =>{
       dispatch({type: 'add'});
     }
     e.preventDefault();
+    setKey(Object.assign({}, defaultKey));
+  }
+
+  const saveTodoList = ()=> {
+    let data = {
+      [props.currentUser.uid]: {
+        [todoListName]: todoList
+      }
+    }
+    props.setIsLoading(true);
+    props.firebase.postTodos(data).then(()=>{
+      props.setIsLoading(false);
+    }).catch((error)=>{
+      props.setIsLoading(false);
+    })
   }
 
   const backspaceKeyPressed = (e, i) =>{
-    if (e.key === 'Backspace' && !currentTodo.content.length && todoList.length > 1) {
+    if (e.key === 'Backspace' && !currentTodo.content.length && todoList.length > 1 && i) {
       dispatch({type: 'delete', index: i});
       e.preventDefault();
     }
   }
 
-  const handleKeyPress = (e,i) => {
+  const handleKeyPress = (e, i) => {
+    console.log(e.key)
     if (e.key === 'Enter') {
-      enterKeyPressed(e)
+      if (key.ctl && key.s && todoListName && todoList.length) {
+        saveTodoList()
+      }
+      else {
+        enterKeyPressed(e);
+      }
     }
-
-    if (e.key === 'Backspace') {
+    else if (e.key === 'Backspace') {
+      setKey(Object.assign({}, defaultKey));
       backspaceKeyPressed(e, i);
+    }
+    else if (e.key === 'Control') {
+      e.preventDefault();
+      setKey({ctl: true});
+    }
+    else if (e.key === ('s' || 'S')) {
+      
+      if (!key.ctl) {
+        setKey(Object.assign({}, defaultKey));
+        return
+      }
+      e.preventDefault();
+      setKey({...key, s: true});
+    }
+    else if (e.key === 'Escape') {
+      setKey(Object.assign({}, defaultKey));
+      document.getElementsByName(`todo-${currentTodo['id']}`)[0].focus();
+      console.log('valid todoList ', todoListName)
+
     }
   }
 
 
   const toggleComplete = (item)=> {
     setCurrentTodo(item);
-    document.getElementsByName(`todo-${item['id']}`)[0].focus();
+    document.getElementsByName(`todo-${todoList[todoList.length -1]}`)[0].focus();
     if (isValid) {
       item.isCompleted = !item.isCompleted;
       dispatch({type: 'update'});
     }
   }
 
- 
   return (
       <form className="todo-list">
         <ul className="col-lg-7 col-sm-11 mx-auto">
@@ -75,9 +118,12 @@ const Todo = (props) =>{
               />
             </div>
           ))}
+          {key.ctl && key.s ?
+        <input autoFocus onKeyDown={handleKeyPress} className="form-control input-field" onChange={(e)=> setTodoListName(e.target.value)} placeholder="Todo list name"/>: null}
         </ul>
       </form>
   );
 }
 
-export default Todo;
+const todoForm = withFirebase(Todo);
+export default todoForm;

@@ -28,6 +28,7 @@ const Home = (props) =>{
 		</div>
 		<div className="col-4">
 		<span onClick={()=>setShowMenu(!showMenu)}>
+
 			<Avatar imgSrc={props.currentUser ? props.currentUser.photoURL: null}/>
 		</span>
 		</div>
@@ -46,9 +47,10 @@ const Home = (props) =>{
         	}
 			<div className="cheat-sheet-container">
 			<h5>CHEAT SHEET</h5>
-			<p>SAVE: Ctl + s</p>
+			<div>SAVE: <b>Ctl + s</b></div>
+			<div>UNSAVE: <b>Esc</b></div>
 		</div>
-		<Todo name={props.currentUser ? props.currentUser.displayName: ''}/>
+		<Todo name={props.currentUser && props.currentUser.name ? props.currentUser.name.split(' ')[0]: ''}/>
 		</div>
   	</div>
   </div>)

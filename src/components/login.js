@@ -9,13 +9,15 @@ const Login = (props) =>{
   const {password, setPassword, passwordValid, email, setEmail, emailValid} = useCredintialsValidation();
   const [error, setError] = React.useState('');
   const handleClick = () =>{
-    props.setIsloading(true);
     if (emailValid && passwordValid) {
-      props.firebase.signIn(email, password).then((data)=>{
+      props.setIsloading(true);
+      props.firebase.signIn(email, password).then((authUser)=>{
         props.setIsloading(false);
         props.history.push('/home');
-        props.stateHandler(data.user);
+        console.log(props)
+        props.stateHandler({name: authUser.user.displayName, uid: authUser.user.uid, photoURL: authUser.user.photoURL, email: authUser.user.email});
       }).catch((error)=>{
+        props.setIsloading(false);
         setError(error.message);
       })
     }
@@ -37,7 +39,6 @@ const Login = (props) =>{
     	  	</div>
   	)
 }
-
 
 const LoginPage = compose (
   withFirebase,

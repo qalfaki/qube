@@ -233,13 +233,16 @@ input {
 
 .cheat-sheet-container {
 	position: absolute;
-   	width: 279px;
-  	height: 100px;
-  	right: 0;
-  	margin-right: 20px;
-  	top: 200px;
-  	background: #BF7474;
-  	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 12px;
+  padding: 12px;
+  width: 279px;
+  height: 100px;
+  right: 0;
+  /*margin-right: 20px;*/
+  top: 200px;
+  background: #BF7474;
+  color: #fff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 /* navbar */
@@ -361,15 +364,10 @@ nav.nav-bar {
   width: 171px;
   height: 215px;
   border-radius: 2px;
-	margin-top: 25px;
-	/*justify-content: center;*/
-  background-color: #FDEDED!important;
+	margin-top: 22px;
+  background: #FDEDED!important;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin-left: 25px;
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
 }
 
 .uploader-wrapper input[type=file] {
@@ -377,7 +375,6 @@ nav.nav-bar {
   top: 0;
   opacity: 0;
   width: 171px;
-  /*height: 215px;*/
   cursor: pointer;
 
 }
@@ -385,7 +382,7 @@ nav.nav-bar {
 
 .plus-icon {
   position: relative;
-  margin: 38%;
+  margin: 50%  auto;
   width: 70px;
 }
 

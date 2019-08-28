@@ -73,7 +73,7 @@ class Firebase {
   // *** upload API *** //
   upload = (uid, file)=> {
     let storageRef = this.storage.ref(`${uid}/profilePicture/${file.name}`);
-    return storageRef.put(file)
+    return storageRef.put(file, {contentType: file.type})
   }
   // *** User API ***
 

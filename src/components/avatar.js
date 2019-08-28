@@ -5,7 +5,7 @@ const Avatar = (props) =>{
 	return (
         <a className="avatar" rel="nofollow">
         	<div className="img">
-        		<img src={props.imgSrc || 'https://api.adorable.io/avatars/189/abott@adorable.png'} alt="no image uploaded"/>
+        		<img src={props.imgSrc || 'https://api.adorable.io/avatars/189/abott@adorable.png'} alt="N/A"/>
         	</div>
         </a>
   	)

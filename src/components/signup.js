@@ -24,7 +24,38 @@ const SignupBase = (props) =>{
     const [user, setUser] = React.useState(null);
     const [error, setError] = React.useState('');
     const [file, setFile] = React.useState(null);
-
+    const updateUserData = (authUser)=>{
+        let currentUser = props.firebase.auth.currentUser;
+        let imagePromise = new Promise((resolve, reject)=>{
+            if (file) {
+                props.firebase.upload(authUser.user.uid, file).then(snapshot=>{
+                    snapshot.ref.getDownloadURL().then((url)=>{
+                        resolve(url)
+                    })
+                }).catch(error=>{
+                    setError(error.message);
+                    reject(error);
+                });
+            }
+            else {
+                resolve(null);
+            }
+        });
+        imagePromise.then(imageURL=>{
+            currentUser.updateProfile({
+                displayName: name,
+                email: email,
+                photoURL: imageURL
+            }).then((data)=>{
+                props.stateHandler({name: authUser.user.displayName, uid: authUser.user.uid, photoURL: authUser.user.photoURL, email: authUser.user.email});
+                props.history.push('/home');
+                props.setIsloading(false);
+            }).catch(error=> {
+                setError(error.message);
+                props.setIsloading(false);
+            });
+        })
+    }
     const handleClick = () => {
         setError(!emailValid ? 'Invalid Email': '')
         if (!(emailValid && nameValid && passwordConfirmed)) {
@@ -32,37 +63,11 @@ const SignupBase = (props) =>{
         }
         props.setIsloading(true);
         props.firebase.signUp(email, password).then(authUser => {
-          props.setIsloading(false);
-          let currentUser = props.firebase.auth.currentUser;
-          if (file) {
-            props.firebase.upload(authUser.user.uid, file).then(()=>{
-              props.firebase.user(authUser.user.uid).set({
-                name: name,
-                email: email,
-                photoURL: `${authUser.user.uid}/profilePicture/${file.name}`
-              }).then(()=>{
-                currentUser.updateProfile({
-                  displayName: name,
-                  photoURL: `${authUser.user.uid}/profilePicture/${file.name}`
-                }).then(()=>{
-                     console.log('the currentUser .user ', currentUser.user)
-                  props.stateHandler(currentUser.user);
-                });
-              });
-            }).catch((error)=>{
-                setError(error.message)
-            })
-          }
-          currentUser.updateProfile({
-            name: name,
-            email: email
-          }).then(()=>{
-            console.log('the currentUser .user ', currentUser.user)
-            props.stateHandler(currentUser.user);
-          });
-          props.history.push('/home');
-      })
-
+          updateUserData(authUser);
+        }).catch(error=>{
+            setError(error.message);
+            props.setIsloading(false);
+        })
     }
 	return (
   		<div className="top-height col-12 row">
@@ -77,19 +82,17 @@ const SignupBase = (props) =>{
     			<input className="input-field form-control" type="password" id="confirm-password" onChange={(e)=>setConfirmPassword(e.target.value)} value={confirmPassword} aria-describedby="emailHelp" placeholder="CONFIRM PASSWORD"/>
     		</div>
     		<div className="uploader-wrapper">
-                <div className="uploader-container">
                     <div className="plus-icon">
                         <div className="horizontal"></div>
                         <div className="vertical"></div>
                     </div>
-                </div>
     			<input type="file" className="image-uploader" onChange={(e)=>{
                     setFile(e.target.files[0])
                 }} placeholder="upload image"/>
     		</div>
     		</div>
     		<p></p>
-    		<div className="">
+    		<div>
     		<a href="/login" className="link">LOGIN</a>
     		<button type="button" onClick={handleClick} className="float-right btn auth-btns">SIGN UP</button>
     	</div>
