@@ -70,16 +70,23 @@ class Firebase {
       }
     });
 
-  // *** upload API *** //
+  // *** upload Image API *** //
+
   upload = (uid, file)=> {
     let storageRef = this.storage.ref(`${uid}/profilePicture/${file.name}`);
     return storageRef.put(file, {contentType: file.type})
   }
+
   // *** User API ***
 
   user = uid => this.db.ref(`users/${uid}`);
 
   users = () => this.db.ref('users');
+
+
+  // *** TODO lists API ***
+
+  todoList = () => this.db.ref(`todoLists`);
 
   // *** Message API ***
 

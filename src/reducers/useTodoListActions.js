@@ -52,7 +52,6 @@ const useTodoListActions = () =>{
       default:
       return state
     }
-    console.log('just before the return ', state)
     return state;
   }
 
