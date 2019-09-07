@@ -1,14 +1,16 @@
 import React from 'react';
 import useTodoListActions from '../reducers/useTodoListActions.js'
 import { withFirebase } from '../api';
+import { Toast, ToastBody, ToastHeader } from 'reactstrap';
 
 
 const Todo = (props) =>{
-  let defaultKey = {s: false, ctl: false}
-  const [key, setKey] = React.useState(Object.assign({}, defaultKey));
-  const [todoListName, setTodoListName] = React.useState('');
 
+  const [showTodTitle, setShowTodoTitile] = React.useState(false);
+  const [todoListName, setTodoListName] = React.useState('');
+  const [saving, setSaving] = React.useState(false);
   const {isValid, setIsValid, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo} = useTodoListActions();
+
   const enterKeyPressed = (e)=>{
     // check if the previous item `isValid`
     if (isValid && currentTodo.content.length) {
@@ -18,21 +20,23 @@ const Todo = (props) =>{
       dispatch({type: 'add'});
     }
     e.preventDefault();
-    setKey(Object.assign({}, defaultKey));
   }
 
   const saveTodoList = ()=> {
-    let data = {
-      [props.currentUser.uid]: {
+    if (todoList.length && todoList[0].content) {
+      let data = {
+        dateCreated: new Date().toISOString().slice(0, 19).replace('T', ' '),
         [todoListName]: todoList
       }
+      props.setIsLoading(true);
+      props.firebase.todoList().push({[props.currentUser.uid]:data}).then(()=>{
+        props.setIsLoading(false);
+        setSaving(true);
+        setTimeout(()=>{setSaving(false)}, 4000)
+      }).catch((error)=>{
+        props.setIsLoading(false);
+      })
     }
-    props.setIsLoading(true);
-    props.firebase.postTodos(data).then(()=>{
-      props.setIsLoading(false);
-    }).catch((error)=>{
-      props.setIsLoading(false);
-    })
   }
 
   const backspaceKeyPressed = (e, i) =>{
@@ -43,44 +47,31 @@ const Todo = (props) =>{
   }
 
   const handleKeyPress = (e, i) => {
-    console.log(e.key)
     if (e.key === 'Enter') {
-      if (key.ctl && key.s && todoListName && todoList.length) {
+      if (showTodTitle && todoListName && todoList.length) {
+        e.preventDefault();
         saveTodoList()
       }
       else {
         enterKeyPressed(e);
       }
     }
+    else if (String.fromCharCode(e.which).toLowerCase() === 's' && e.ctrlKey) {
+      e.preventDefault();
+      setShowTodoTitile(true);
+    }
     else if (e.key === 'Backspace') {
-      setKey(Object.assign({}, defaultKey));
       backspaceKeyPressed(e, i);
     }
-    else if (e.key === 'Control') {
-      e.preventDefault();
-      setKey({ctl: true});
-    }
-    else if (e.key === ('s' || 'S')) {
-      
-      if (!key.ctl) {
-        setKey(Object.assign({}, defaultKey));
-        return
-      }
-      e.preventDefault();
-      setKey({...key, s: true});
-    }
     else if (e.key === 'Escape') {
-      setKey(Object.assign({}, defaultKey));
+      setShowTodoTitile(false);
       document.getElementsByName(`todo-${currentTodo['id']}`)[0].focus();
-      console.log('valid todoList ', todoListName)
-
     }
   }
 
 
   const toggleComplete = (item)=> {
     setCurrentTodo(item);
-    document.getElementsByName(`todo-${todoList[todoList.length -1]}`)[0].focus();
     if (isValid) {
       item.isCompleted = !item.isCompleted;
       dispatch({type: 'update'});
@@ -89,6 +80,13 @@ const Todo = (props) =>{
 
   return (
       <form className="todo-list">
+          {saving ? <Toast><ToastHeader>
+            {todoListName}
+          </ToastHeader>
+          <ToastBody>
+            was saved successfully
+          </ToastBody>
+        </Toast> : null}
         <ul className="col-lg-7 col-sm-11 mx-auto">
           {todoList.map((todo, i) => (
             <div className={`todo ${todo.isCompleted && 'todo-is-completed'}`} key={i}>
@@ -118,7 +116,7 @@ const Todo = (props) =>{
               />
             </div>
           ))}
-          {key.ctl && key.s ?
+          {showTodTitle ?
         <input autoFocus onKeyDown={handleKeyPress} className="form-control input-field" onChange={(e)=> setTodoListName(e.target.value)} placeholder="Todo list name"/>: null}
         </ul>
       </form>
