@@ -6,6 +6,7 @@ html, body {
 .App {
 	padding: 0;
 	margin: 0;
+  height: 100%;
 }
 .logo {
   top: 159px!important;
@@ -18,7 +19,7 @@ html, body {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   padding:20px;
   bottom: 0;
   font-style: italic;
@@ -38,7 +39,6 @@ html, body {
   /* identical to box height */
   width: 356px!important;
   letter-spacing: 0.67px;
-  background: #FDEDED;
   margin-top: 22px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #FDEDED!important;
@@ -158,7 +158,6 @@ input {
     top: 55px;
        /*set to 0 to toggle back*/
     height: calc(100% - 100px);
-    margin-left: -400px;   /*set to un comment to toggle back*/
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
@@ -173,14 +172,23 @@ input {
 .page-content {
     z-index: 1001;
     position: relative;
-    height: auto;
-    widows: 100%;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    overflow: auto;
+    height: calc(100vh - 55px);
 }
 
+
+.untoggle-sidebar {
+  margin-left: -400px;
+  width: 0;
+   -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
 
 .toggle-sidebar {
 	margin-left: 0;
@@ -192,20 +200,32 @@ input {
 }
 
 .toggle-page-content {
-	width: calc(100% - 400px);
+  width: calc(100% - 400px);
   margin-left: 400px!important;
-   -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.untoggle-page-content {
+  width: 100%;
+  margin-left: 0px!important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .wrapper {
+    overflow: auto;
+    margin-top: 55px;
     padding-right: 0;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
+    max-height: calc(100vh - 55px);
 }
 
 
@@ -252,6 +272,7 @@ nav.nav-bar {
 	padding: 5px!important;
 	border-bottom: 1px solid #FFFFFF;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #BF7474!important;
 }
 
 
@@ -442,7 +463,7 @@ nav.nav-bar {
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5);  
-  z-index: 999;
+  z-index: 1000000;
 }
 
 .spinner i:after {
@@ -512,5 +533,27 @@ nav.nav-bar {
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
+
+}
+
+.to-do-card {
+  margin: 12px 0;
+}
+
+::-webkit-scrollbar
+{
+  width: 10px;  /* for vertical scrollbars */
+  height: 10px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 50, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  border-radius: 12px;
+  background: rgb(67,57,57);
 
 }
