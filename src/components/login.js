@@ -10,14 +10,14 @@ const Login = (props) =>{
   const [error, setError] = React.useState('');
   const handleClick = () =>{
     if (emailValid && passwordValid) {
-      props.setIsloading(true);
+      props.setIsLoading(true);
       props.firebase.signIn(email, password).then((authUser)=>{
-        props.setIsloading(false);
+        props.setIsLoading(false);
         props.history.push('/home');
         console.log(props)
         props.stateHandler({name: authUser.user.displayName, uid: authUser.user.uid, photoURL: authUser.user.photoURL, email: authUser.user.email});
       }).catch((error)=>{
-        props.setIsloading(false);
+        props.setIsLoading(false);
         setError(error.message);
       })
     }

@@ -538,11 +538,23 @@ nav.nav-bar {
 
 .to-do-card {
   margin: 12px 0;
+  background: transparent!important;
+  color: #fff;
+}
+
+.to-do-card:hover {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.to-do-card * {
+  background: transparent!important;
+  color: #fff;
 }
 
 ::-webkit-scrollbar
 {
-  width: 10px;  /* for vertical scrollbars */
+  width: 8px;  /* for vertical scrollbars */
   height: 10px; /* for horizontal scrollbars */
 }
 

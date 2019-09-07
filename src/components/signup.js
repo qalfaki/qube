@@ -49,10 +49,10 @@ const SignupBase = (props) =>{
             }).then((data)=>{
                 props.stateHandler({name: authUser.user.displayName, uid: authUser.user.uid, photoURL: authUser.user.photoURL, email: authUser.user.email});
                 props.history.push('/home');
-                props.setIsloading(false);
+                props.setIsLoading(false);
             }).catch(error=> {
                 setError(error.message);
-                props.setIsloading(false);
+                props.setIsLoading(false);
             });
         })
     }
@@ -61,12 +61,12 @@ const SignupBase = (props) =>{
         if (!(emailValid && nameValid && passwordConfirmed)) {
             return
         }
-        props.setIsloading(true);
+        props.setIsLoading(true);
         props.firebase.signUp(email, password).then(authUser => {
           updateUserData(authUser);
         }).catch(error=>{
             setError(error.message);
-            props.setIsloading(false);
+            props.setIsLoading(false);
         })
     }
 	return (
