@@ -77,6 +77,10 @@ a.link:hover {
 	text-decoration: none!important;
 }
 
+a.link:focus {
+  color: #ccc!important;
+  text-decoration: none!important;
+}
 .btn-wrapper {
 	padding-top: 20px;
 }
@@ -466,6 +470,13 @@ nav.nav-bar {
   z-index: 1000000;
 }
 
+.toast-style {
+  position: fixed;
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 5px;
+  padding: 12px;
+}
+
 .spinner i:after {
     position: absolute;
     clip: rect(0, 1em, 1em, .5em);
@@ -502,7 +513,12 @@ nav.nav-bar {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-
+  .todo {
+    font-size: 15px!important;
+  }
+  .msg-style {
+    font-size: 15px!important;
+  }
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 992px) {
@@ -514,6 +530,13 @@ nav.nav-bar {
 		margin-top: 50px!important;
 	}
 
+  .todo {
+    font-size: 20px!important; 
+  }
+
+  .msg-style {
+    font-size: 20px!important;
+  }
 /*  .footer {
     bottom: unset;
   }*/
@@ -568,4 +591,8 @@ nav.nav-bar {
   border-radius: 12px;
   background: rgb(67,57,57);
 
+}
+
+.msg-style {
+  font-style: italic;
 }

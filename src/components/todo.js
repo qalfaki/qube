@@ -1,15 +1,16 @@
 import React from 'react';
 import useTodoListActions from '../reducers/useTodoListActions.js'
 import { withFirebase } from '../api';
-import { Toast, ToastBody, ToastHeader } from 'reactstrap';
+import { Toast, ToastBody, ToastHeader, Tooltip } from 'reactstrap';
 
 
 const Todo = (props) =>{
 
-  const [showTodTitle, setShowTodoTitile] = React.useState(false);
+  const [showTodTitle, setShowTodoTitle] = React.useState(false);
   const [todoListName, setTodoListName] = React.useState('');
   const [saving, setSaving] = React.useState(false);
   const {isValid, setIsValid, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo} = useTodoListActions();
+  const [open, setTooltipState] = React.useState(false);
 
   const enterKeyPressed = (e)=>{
     // check if the previous item `isValid`
@@ -26,13 +27,18 @@ const Todo = (props) =>{
     if (todoList.length && todoList[0].content) {
       let data = {
         dateCreated: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        [todoListName]: todoList
+        title: todoListName,
+        items: todoList
       }
       props.setIsLoading(true);
-      props.firebase.todoList().push({[props.currentUser.uid]:data}).then(()=>{
+      props.firebase.addTodos(props.currentUser.uid, data).then(()=>{
         props.setIsLoading(false);
         setSaving(true);
-        setTimeout(()=>{setSaving(false)}, 4000)
+        dispatch({type: 'reset'});
+        setShowTodoTitle(false);
+        setTimeout(()=>{
+          setSaving(false);
+        }, 5000)
       }).catch((error)=>{
         props.setIsLoading(false);
       })
@@ -58,13 +64,13 @@ const Todo = (props) =>{
     }
     else if (String.fromCharCode(e.which).toLowerCase() === 's' && e.ctrlKey) {
       e.preventDefault();
-      setShowTodoTitile(true);
+      setShowTodoTitle(true);
     }
     else if (e.key === 'Backspace') {
       backspaceKeyPressed(e, i);
     }
     else if (e.key === 'Escape') {
-      setShowTodoTitile(false);
+      setShowTodoTitle(false);
       document.getElementsByName(`todo-${currentTodo['id']}`)[0].focus();
     }
   }
@@ -76,21 +82,24 @@ const Todo = (props) =>{
       item.isCompleted = !item.isCompleted;
       dispatch({type: 'update'});
     }
-  }
+  } 
 
   return (
       <form className="todo-list">
-          {saving ? <Toast><ToastHeader>
+          {saving ? <Toast className="toast-style"><ToastHeader>
             {todoListName}
           </ToastHeader>
           <ToastBody>
             was saved successfully
           </ToastBody>
         </Toast> : null}
+        <Tooltip placement="left" isOpen={open} target="checkbox" toggle={()=>{setTooltipState(!open)}}>
+        Mark as completed
+        </Tooltip>
         <ul className="col-lg-7 col-sm-11 mx-auto">
           {todoList.map((todo, i) => (
             <div className={`todo ${todo.isCompleted && 'todo-is-completed'}`} key={i}>
-              <div className={'checkbox'} name={`todo-check-${todo['id']}`} onClick={(e) => {
+              <div id="checkbox" className={'checkbox'} name={`todo-check-${todo['id']}`} onClick={(e) => {
                 toggleComplete(todo, i)
               }}>
                 {todo.isCompleted && (
@@ -117,7 +126,7 @@ const Todo = (props) =>{
             </div>
           ))}
           {showTodTitle ?
-        <input autoFocus onKeyDown={handleKeyPress} className="form-control input-field" onChange={(e)=> setTodoListName(e.target.value)} placeholder="Todo list name"/>: null}
+        <input autoFocus onKeyDown={handleKeyPress} className="form-control input-field" onChange={(e)=> setTodoListName(e.target.value)} placeholder="Title"/>: null}
         </ul>
       </form>
   );

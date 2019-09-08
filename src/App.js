@@ -2,6 +2,8 @@ import React from 'react';
 import Sidebar from './components/sidebar.js';
 import Avatar from './components/avatar.js';
 import logo from './assets/images/logo196x143.png';
+import { withFirebase } from './api';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -29,7 +31,9 @@ const App = (props) => {
   const handleClick = (e) => {
     e.preventDefault();
     props.firebase.signOut().then(()=>{
-      props.stateHandler(null)
+      setUser(null);
+      setShowMenu(false);
+      setShowSideBar(false);
     })
   }
 
@@ -40,22 +44,22 @@ const App = (props) => {
         <div className='spinner'><i></i></div></span>: null}
 
 
-<nav className="nav-bar fixed-top row co-12">
-    <div className="col-4">
-    <button type="button" onClick={(e)=>setShowSideBar(!showSideBar)} className={showSideBar ? "menu-btn_active btn btn-dark btn-circle btn-xl": "btn btn-dark btn-circle btn-xl"}><span></span></button>
-    </div>
-    <div className="col-4">
-    <a href="/home">
-      <img  src={logo} alt='no img' className="logo mx-auto d-block"/>
+    {user ? <nav className="nav-bar fixed-top row co-12">
+      <div className="col-4">
+        <button type="button" onClick={(e)=>setShowSideBar(!showSideBar)} className={showSideBar ? "menu-btn_active btn btn-dark btn-circle btn-xl": "btn btn-dark btn-circle btn-xl"}><span></span></button>
+      </div>
+      <div className="col-4">
+        <a href="/home">
+        <img  src={logo} alt='no img' className="logo mx-auto d-block"/>
     </a>
     </div>
     <div className="col-4">
     <span onClick={()=>setShowMenu(!showMenu)}>
 
-      <Avatar imgSrc={props.currentUser ? props.currentUser.photoURL: null}/>
+      <Avatar imgSrc={user ? user.photoURL: null}/>
     </span>
     </div>
-  </nav>
+  </nav>: null}
   <div className="wrapper">
       <Sidebar toggle={showSideBar}/>
       <div className={showSideBar ? "page-content toggle-page-content": "page-content untoggle-page-content"}>
@@ -67,7 +71,7 @@ const App = (props) => {
           }>logout</a>
               </div>): (null)
         }
-     	  {routes.map((route, idx)=> <Route key={idx}  path={route.path} render={(props)=> <route.component {...props} setIsLoading={setIsLoading} currentUser={user} stateHandler = {setUser}/>} />)}
+     	  {routes.map((route, idx)=> <Route key={idx}  path={route.path} render={(props)=> <route.component isLoading = {isLoading} {...props} setIsLoading={setIsLoading} currentUser={user} stateHandler = {setUser}/>} />)}
            <Route path='/'>
             <Redirect to="/home" />
           </Route>
@@ -82,4 +86,4 @@ const App = (props) => {
   )
 }
 
-export default App;
+export default withFirebase(App);

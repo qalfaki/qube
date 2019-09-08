@@ -1,25 +1,49 @@
 import React from 'react';
+import useTodoListActions from '../reducers/useTodoListActions.js';
+import { withFirebase } from '../api';
 
 
 const Archive = (props) =>{
-	const todoList = ['go shopping in kibera', 'read microservices chaper a day', 'fix front gear changer f the bicycle', 'buy front and rare lights', 'fix front gear changer f the bicycle', 'buy front and rare lights'];
+	const [todosLists, setTodos] = React.useState([]);
+	React.useEffect(()=>{
+		let items = [];
+		props.setIsLoading(true);
+		props.firebase.getTodos(props.currentUser.uid).then(data=>{
+			data.forEach(function(childSnapshot) {
+    		var childKey = childSnapshot.key;
+    		var childData = childSnapshot.val();
+    		items = [...items, childData]
+  		});
+  		setTodos(items.reverse());
+  		props.setIsLoading(false);
+		});
+		return ()=>{
+			// setTodos([]);
+		}
+	}, [])
+	const { dispatch } = useTodoListActions();
+
+	const handleClick = (items) =>{
+		// dispatch({type: 'edit', items: items});
+
+	}
+	console.log(todosLists)
+
   return (
   	<ul className="col-lg-5 col-sm-8 col-xs-11 mx-auto">
-          {todoList.map((todo, i) => (
-          	<div class="card to-do-card">
-          	  <div class="card-block">
-          	    <h4 class="card-title">{todo}</h4>
-  						<ul class="list-group list-group-flush">
-    						<li class="list-group-item">Cras justo odio</li>
-    						<li class="list-group-item">Dapibus ac facilisis in</li>
-    						<li class="list-group-item">Vestibulum at eros</li>
-  					</ul>
-  					<p class="float-right card-text"><small class="">Last updated 3 mins ago</small></p>
-  					</div>
-					</div>)
-          )}
+          {todosLists.length || props.isLoading ? todosLists.map((todo, i) => (
+          	<div onClick={handleClick(todo)} class="card to-do-card">
+          	  <div id={`${todo.title}-${i}`}  class="card-block">
+          	    <h4 class="card-title">{todo.title}</h4>
+  							<ul class="list-group list-group-flush">
+  							{todo.items.map(item=> (<li className="list-group-item">{item.content}</li>))}
+  							</ul>
+  							<p class="float-right card-text"><small class="">{todo.dateCreated}</small></p>
+  						</div>
+						</div>)
+          ): <h3 className="top-height error-text"> You have nothing <span className="msg-style"> TO-DO </span></h3>}
         </ul>
   	)
 }
 
-export default Archive
+export default withFirebase(Archive);
