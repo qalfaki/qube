@@ -34,8 +34,8 @@ const Todo = (props) =>{
       props.firebase.addTodos(props.currentUser.uid, data).then(()=>{
         props.setIsLoading(false);
         setSaving(true);
-        dispatch({type: 'reset'});
         setShowTodoTitle(false);
+        dispatch({type: 'reset'});
         setTimeout(()=>{
           setSaving(false);
         }, 5000)

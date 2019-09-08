@@ -51,6 +51,9 @@ const useTodoListActions = () =>{
         state = [...action.items]
         setEdit(true);
         break
+      case 'reset':
+        state = [Object.assign(currentTodo, defaultTodo)]
+        break
       default:
       return state
     }
@@ -59,7 +62,7 @@ const useTodoListActions = () =>{
 
   const [todoList, dispatch] = React.useReducer(reducer, [currentTodo]);
 
-  return {isValid, setIsValid, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo}
+  return {isValid, setIsValid, edit, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo}
 }
 
 export default useTodoListActions;
