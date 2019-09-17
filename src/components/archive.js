@@ -4,7 +4,10 @@ import { withFirebase } from '../api';
 
 
 const Archive = (props) =>{
+
+	// todo lists state
 	const [todosLists, setTodos] = React.useState([]);
+	// fetch data hook
 	React.useEffect(()=>{
 		let items = [];
 		props.setIsLoading(true);
@@ -12,33 +15,31 @@ const Archive = (props) =>{
 			data.forEach(function(childSnapshot) {
     		var childKey = childSnapshot.key;
     		var childData = childSnapshot.val();
-    		items = [...items, childData]
+    		items = [...items, {uid: childKey, ...childData}]
   		});
   		setTodos(items.reverse());
   		props.setIsLoading(false);
 		});
-		return ()=>{
-			// setTodos([]);
-		}
 	}, [])
+	// dispatcher to uplay other states mutation
 	const { dispatch } = useTodoListActions();
 
 	const handleClick = (items) =>{
-		// dispatch({type: 'edit', items: items});
-
+		props.history.push('/home')
+		dispatch({type: 'edit', item: items});
 	}
-	console.log(todosLists)
 
   return (
   	<ul className="col-lg-5 col-sm-8 col-xs-11 mx-auto">
           {todosLists.length || props.isLoading ? todosLists.map((todo, i) => (
-          	<div onClick={handleClick(todo)} class="card to-do-card">
-          	  <div id={`${todo.title}-${i}`}  class="card-block">
-          	    <h4 class="card-title">{todo.title}</h4>
-  							<ul class="list-group list-group-flush">
-  							{todo.items.map(item=> (<li className="list-group-item">{item.content}</li>))}
+          	<div key={`${todo.title}-${i}`} onClick={()=>handleClick(todo)} className="card to-do-card">
+          	  <div key={todo.id}  className="card-block">
+          	    <h4 className="card-title">{todo.title}</h4>
+  							<ul className="list-group list-group-flush">
+  							{todo.items.map((item, i)=> (<li key={`{item.id}-${i}`} className="list-group-item">{item.content}</li>))}
   							</ul>
-  							<p class="float-right card-text"><small class="">{todo.dateCreated}</small></p>
+  							<p className="float-right card-text"><small className="">Added on: <br/> {todo.dateCreated}</small></p>
+  							{todo.dateUpdated ? <p className="card-text"><small className="">Edited on: <br/>{todo.dateUpdated}</small></p>: null}
   						</div>
 						</div>)
           ): <h3 className="top-height error-text"> You have nothing <span className="msg-style"> TO-DO </span></h3>}

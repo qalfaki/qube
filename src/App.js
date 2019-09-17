@@ -73,7 +73,7 @@ const App = (props) => {
         }
      	  {routes.map((route, idx)=> <Route key={idx}  path={route.path} render={(props)=> <route.component isLoading = {isLoading} {...props} setIsLoading={setIsLoading} currentUser={user} stateHandler = {setUser}/>} />)}
            <Route path='/'>
-            <Redirect to="/home" />
+            <Redirect  to="/home" />
           </Route>
           {user ? null: <Redirect path='/login' to='/login'/>}
     	  </div>

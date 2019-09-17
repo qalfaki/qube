@@ -89,6 +89,7 @@ class Firebase {
   // todoList = uid => this.db.ref(`todoLists/${uid || ''}`);
 
   addTodos = (uid, data) => this.db.ref(`todos/${uid}`).push(data);
+  updateTodo = (user_uid, item_uid, data) => this.db.ref(`todos/${user_uid}/${item_uid}`).set(data);
   getTodos = uid => this.db.ref(`todos/${uid}`).once('value')
   // *** Message API ***
 

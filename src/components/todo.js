@@ -7,9 +7,9 @@ import { Toast, ToastBody, ToastHeader, Tooltip } from 'reactstrap';
 const Todo = (props) =>{
 
   const [showTodTitle, setShowTodoTitle] = React.useState(false);
-  const [todoListName, setTodoListName] = React.useState('');
   const [saving, setSaving] = React.useState(false);
-  const {isValid, setIsValid, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo} = useTodoListActions();
+  const {isValid, setEditItem, editItem, setIsValid, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo} = useTodoListActions();
+  const [todoListName, setTodoListName] = React.useState(editItem ? editItem.title: '');
   const [open, setTooltipState] = React.useState(false);
 
   const enterKeyPressed = (e)=>{
@@ -25,23 +25,41 @@ const Todo = (props) =>{
 
   const saveTodoList = ()=> {
     if (todoList.length && todoList[0].content) {
+      let dateCreated = editItem ? editItem.dateCreated : new Date().toISOString().slice(0, 19).replace('T', ' ');
+      let dateUpdated = editItem  ? new Date().toISOString().slice(0, 19).replace('T', ' '): null;
       let data = {
-        dateCreated: new Date().toISOString().slice(0, 19).replace('T', ' '),
         title: todoListName,
-        items: todoList
+        items: todoList,
+        dateUpdated: dateUpdated,
+        dateCreated: dateCreated
       }
       props.setIsLoading(true);
-      props.firebase.addTodos(props.currentUser.uid, data).then(()=>{
-        props.setIsLoading(false);
-        setSaving(true);
-        setShowTodoTitle(false);
-        dispatch({type: 'reset'});
-        setTimeout(()=>{
-          setSaving(false);
-        }, 5000)
-      }).catch((error)=>{
-        props.setIsLoading(false);
-      })
+      if (editItem) {
+        props.firebase.updateTodo(props.currentUser.uid, editItem.uid, data).then(data=>{
+          setSaving(true);
+          props.setIsLoading(false);
+          setShowTodoTitle(false);
+          dispatch({type: 'reset'});
+          setEditItem(null);
+          setTimeout(()=>{
+            setSaving(false);
+          }, 5000)
+          localStorage.removeItem('editItem');
+        })
+      }
+      else {
+        props.firebase.addTodos(props.currentUser.uid, data).then(()=>{
+          props.setIsLoading(false);
+          setSaving(true);
+          setShowTodoTitle(false);
+          dispatch({type: 'reset'});
+          setTimeout(()=>{
+            setSaving(false);
+          }, 5000)
+        }).catch((error)=>{
+          props.setIsLoading(false);
+        })
+      }
     }
   }
 
@@ -56,6 +74,7 @@ const Todo = (props) =>{
     if (e.key === 'Enter') {
       if (showTodTitle && todoListName && todoList.length) {
         e.preventDefault();
+        if (editItem) {}
         saveTodoList()
       }
       else {
@@ -86,13 +105,6 @@ const Todo = (props) =>{
 
   return (
       <form className="todo-list">
-          {saving ? <Toast className="toast-style"><ToastHeader>
-            {todoListName}
-          </ToastHeader>
-          <ToastBody>
-            was saved successfully
-          </ToastBody>
-        </Toast> : null}
         <Tooltip placement="left" isOpen={open} target="checkbox" toggle={()=>{setTooltipState(!open)}}>
         Mark as completed
         </Tooltip>
@@ -126,7 +138,24 @@ const Todo = (props) =>{
             </div>
           ))}
           {showTodTitle ?
-        <input autoFocus onKeyDown={handleKeyPress} className="form-control input-field" onChange={(e)=> setTodoListName(e.target.value)} placeholder="Title"/>: null}
+        <input autoFocus onKeyDown={handleKeyPress} value={todoListName} className="form-control input-field" onChange={(e)=> setTodoListName(e.target.value)} placeholder="Title"/>: null}
+                {saving ? <Toast className="my-2 toast-style"><ToastHeader>
+            {todoListName}
+          </ToastHeader>
+          <ToastBody>
+            was saved successfully
+          </ToastBody>
+        </Toast> : null}
+
+        {editItem ? <Toast className="my-2 toast-style"><ToastHeader>
+            Edit
+          </ToastHeader>
+          <ToastBody>
+           Title: {todoListName}
+           <br/>
+           items: {todoList.length}
+          </ToastBody>
+        </Toast> : null}
         </ul>
       </form>
   );

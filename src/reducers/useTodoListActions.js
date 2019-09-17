@@ -18,7 +18,8 @@ const useTodoListActions = () =>{
   	dateUpdate: null,
 
   }
-  const [edit, setEdit] = React.useState(false);
+  let storedEditItem = JSON.parse(localStorage.getItem('editItem') || 'null');
+  const [editItem, setEditItem] = React.useState(storedEditItem);
   const [currentTodo, setCurrentTodo] = React.useState(Object.assign({}, defaultTodo))
   const [isValid, setIsValid] = React.useReducer((state, action)=>{
     return action.length > 0
@@ -48,8 +49,7 @@ const useTodoListActions = () =>{
         setIsValid(state[state.length-1].content);
         break;
       case 'edit':
-        state = [...action.items]
-        setEdit(true);
+        localStorage.setItem('editItem', JSON.stringify(action.item))
         break
       case 'reset':
         state = [Object.assign(currentTodo, defaultTodo)]
@@ -60,9 +60,9 @@ const useTodoListActions = () =>{
     return state;
   }
 
-  const [todoList, dispatch] = React.useReducer(reducer, [currentTodo]);
+  const [todoList, dispatch] = React.useReducer(reducer, storedEditItem ? storedEditItem.items: [currentTodo]);
 
-  return {isValid, setIsValid, edit, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo}
+  return {isValid, setIsValid, setEditItem, editItem, todoList, dispatch, currentTodo, setCurrentTodo, defaultTodo}
 }
 
 export default useTodoListActions;
