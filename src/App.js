@@ -34,6 +34,7 @@ const App = (props) => {
       setUser(null);
       setShowMenu(false);
       setShowSideBar(false);
+      localStorage.removeItem('editItem');
     })
   }
 

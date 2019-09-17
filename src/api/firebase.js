@@ -83,7 +83,6 @@ class Firebase {
 
   users = () => this.db.ref('users');
 
-
   // *** TODO lists API ***
 
   // todoList = uid => this.db.ref(`todoLists/${uid || ''}`);

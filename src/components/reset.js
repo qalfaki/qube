@@ -12,8 +12,10 @@ const Reset = (props) =>{
 
   const handleClick = ()=> {
     if (emailValid) {
+      props.setLoader(true)
       props.firebase.resetPassword(email).then(()=> {
         setError('A rest link was sent your email')
+        props.setLoader(false);
         setTimeout(()=>{props.history.push('/login')}, 5000);
       }).catch(error=> setError(error.message))
     }

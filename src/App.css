@@ -390,11 +390,6 @@ nav.nav-bar {
   justify-content: space-around;
 }
 
-::placeholder {
-  opacity: 0.4;
-  color: #fff;
-  font-size: 20px;
-};
 
 .uploader-wrapper {
   width: 171px;
@@ -609,3 +604,9 @@ nav.nav-bar {
 .msg-style {
   font-style: italic;
 }
+
+::placeholder {
+  opacity: 0.4;
+  color: #fff;
+  font-size: 20px;
+};
