@@ -25,8 +25,8 @@ const Archive = (props) =>{
 	const { dispatch } = useTodoListActions();
 
 	const handleClick = (items) =>{
-		props.history.push('/home')
 		dispatch({type: 'edit', item: items});
+		props.history.push('/home');
 	}
 
   return (

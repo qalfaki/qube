@@ -20,7 +20,6 @@ const SignupBase = (props) =>{
         name,
         setName
     } = useSignupValidation();
-    const [user, setUser] = React.useState(null);
     const [error, setError] = React.useState('');
     const [file, setFile] = React.useState(null);
     const updateUserData = (authUser)=>{

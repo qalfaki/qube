@@ -12,6 +12,8 @@ const Todo = (props) =>{
   const [todoListName, setTodoListName] = React.useState(editItem ? editItem.title: '');
   const [open, setTooltipState] = React.useState(false);
 
+  React.useEffect(()=>{setIsValid(currentTodo.content)},[])
+
   const enterKeyPressed = (e)=>{
     // check if the previous item `isValid`
     if (isValid && currentTodo.content.length) {
