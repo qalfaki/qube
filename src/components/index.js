@@ -5,6 +5,5 @@ import Signup from './signup.js';
 import Todo from './todo.js';
 import Goals from './goals.js';
 import Archive from './archive.js';
-import Navigation from './navigation.js';
 
-export {Home, Login, Reset, Signup, Todo, Archive, Goals, Navigation};
+export {Home, Login, Reset, Signup, Todo, Archive, Goals};

@@ -6,6 +6,7 @@ html, body {
 .App {
 	padding: 0;
 	margin: 0;
+  height: 100%;
 }
 .logo {
   top: 159px!important;
@@ -18,7 +19,7 @@ html, body {
 }
 
 .footer {
-  position: absolute;
+  position: fixed;
   padding:20px;
   bottom: 0;
   font-style: italic;
@@ -38,7 +39,6 @@ html, body {
   /* identical to box height */
   width: 356px!important;
   letter-spacing: 0.67px;
-  background: #FDEDED;
   margin-top: 22px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   background-color: #FDEDED!important;
@@ -61,28 +61,452 @@ html, body {
 }
 
 .link {
-  font-style: italic;
+	font-style: italic;
   font-weight: 300;
   font-size: 18px;
   line-height: 21px;
   /* identical to box height */
-
   text-align: center;
   letter-spacing: 0.67px;
   color: #FFFFFF;
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.link:hover .link:focus {
+a.link:hover {
 	color: #ccc!important;
 	text-decoration: none!important;
 }
 
+a.link:focus {
+  color: #ccc!important;
+  text-decoration: none!important;
+}
 .btn-wrapper {
 	padding-top: 20px;
 }
 
-/* Extra small devices (phones, 600px and down) */
+
+/*TO-DO styles*/
+
+.todo-list {
+  -ms-box-orient: horizontal;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: flex;
+  /*flex-direction: column;*/
+  align-items: center;
+  justify-content: center;
+  color: white;
+  padding-left: 12px!important;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex-direction: row!important;
+  flex-direction: row!important;
+}
+
+.todo {
+	display: flex;
+	align-items: center;
+	margin: 1rem 0;
+	font-size: 30px;
+}
+
+.todo-is-completed .checkbox {
+	color: #000;
+	background: #fff;
+}
+
+.todo-is-completed input {
+	text-decoration: line-through;
+}
+
+.checkbox {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color .2s ease-in-out;
+  border: 1px solid #fff;
+}
+
+.checkbox:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0);
+}
+
+.checkbox-checked {
+  color: #000;
+  background: #fff;
+}
+
+.todo-ul {
+  list-style: none;
+  padding: 0;
+  line-height: 2rem;
+  width: 500px;
+}
+
+input {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 1.4rem;
+  outline: none;
+  width: 100%;
+}
+
+
+/* Side bar styles */
+
+.sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    top: 55px;
+       /*set to 0 to toggle back*/
+    height: calc(100% - 100px);
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    background: #433939;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+
+/* page content style */
+.page-content {
+    z-index: 1001;
+    position: relative;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    overflow: auto;
+    height: calc(100vh - 55px);
+}
+
+
+.untoggle-sidebar {
+  margin-left: -400px;
+  width: 0;
+   -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.toggle-sidebar {
+	margin-left: 0;
+	width: 400px;
+	 -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.toggle-page-content {
+  width: calc(100% - 400px);
+  margin-left: 400px!important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.untoggle-page-content {
+  width: 100%;
+  margin-left: 0px!important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.wrapper {
+    overflow: auto;
+    margin-top: 55px;
+    padding-right: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    max-height: calc(100vh - 55px);
+}
+
+
+/* Navigation */
+.navigation {
+	margin-top: 200px;
+	list-style: none;
+	line-height: 50px;
+	text-align: center;
+	padding: 0;
+
+}
+
+.navigation .link {
+	font-style: italic;
+	font-weight: 300;
+	font-size: 24px!important;
+	line-height: 28px;
+	text-align: center;
+	letter-spacing: 0.67px;
+}
+
+/* instructions */
+
+
+.cheat-sheet-container {
+	position: absolute;
+  font-size: 12px;
+  padding: 12px;
+  width: 279px;
+  height: 100px;
+  right: 0;
+  /*margin-right: 20px;*/
+  top: 200px;
+  background: #BF7474;
+  color: #fff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* navbar */
+
+nav.nav-bar {
+	margin: 0;
+	padding: 5px!important;
+	border-bottom: 1px solid #FFFFFF;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #BF7474!important;
+}
+
+
+/*humburger*/
+
+.btn-circle.btn-xl {
+	cursor: pointer;
+    width: 43px; 
+    height: 43px; 
+    padding: 10px 16px; 
+    border-radius: 35px; 
+    font-size: 12px; 
+    text-align: center;
+    background-color: #fff;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); 
+}
+
+
+.btn-xl span {
+	margin-left: -10px;
+}
+.btn-xl span,
+.btn-xl span::before,
+.btn-xl span::after {
+  position: absolute;
+  top: 50%; margin-top: -1px;
+  width: 20px;
+  height: 2px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #BF7474;
+}
+.btn-xl span::before,
+.btn-xl span::after {
+  content: '';
+  display: block;
+  transition: 0.3s;
+}
+.btn-xl span::before {
+  transform: translateY(-5px);
+}
+.btn-xl span::after {
+  transform: translateY(5px);
+}
+
+.menu-btn_active span:before {
+  transform: rotate(-35deg);
+  width: 10px;
+  transform-origin: left bottom;
+}
+.menu-btn_active span:after {
+  transform: rotate(35deg);
+  width: 10px;
+  transform-origin: left top;
+}
+
+
+/* Avatar */
+
+.avatar {
+	margin-right: 8px;
+	position: absolute;
+	cursor: pointer;
+    right: 0%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.avatar img {
+	width: 43px;
+    height: 43px;
+    border-radius: 50%;
+}
+
+.logo {
+	width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+.avatar-menu {
+  z-index: 9999;
+	font-size: 12px;
+	background: #fff;
+  right: 0;
+  top: 60;
+  position: absolute;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.error-text {
+	font-size: 20px;
+	color: #fff;
+  width: 365px;
+}
+
+.signup-form-wrapper {
+	max-width: 600px;
+  display: inline-flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+
+.uploader-wrapper {
+  width: 171px;
+  height: 215px;
+  border-radius: 2px;
+	margin-top: 22px;
+  background: #FDEDED!important;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-left: 25px;
+}
+
+.uploader-wrapper input[type=file] {
+  left: 0;
+  top: 0;
+  opacity: 0;
+  width: 171px;
+  cursor: pointer;
+
+}
+
+
+.plus-icon {
+  position: relative;
+  margin: 50%  auto;
+  width: 70px;
+}
+
+.horizontal {
+  width: 50px;
+  height: 1px;
+  background: #222;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.vertical {
+  width: 50px;
+  height: 1px;
+  background: #222;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+}
+
+
+
+.spinner {
+    font-size: 60px;
+    width: 1em;
+    height: 1em;
+    margin: 100px auto;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 .1em rgba(171, 57, 57, 0.65);
+}
+
+.spinner i {
+    position: absolute;
+    clip: rect(0, 1em, 1em, .5em);
+    width: 1em;
+    height: 1em;
+    animation: spinner-circle-clipper 1s ease-in-out infinite;
+}
+
+@keyframes spinner-circle-clipper {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);  
+  z-index: 1000000;
+}
+
+.toast-style {
+  /*position: fixed;*/
+  /*flex-flow: row wrap!important;*/
+  background-color: rgba(0,0,0,0.3);
+  border-radius: 5px;
+  padding: 12px;
+  margin: auto;
+}
+
+.spinner i:after {
+    position: absolute;
+    clip: rect(0, 1em, 1em, .5em);
+    width: 1em;
+    height: 1em;
+    content: '';
+    animation: spinner-circle 1s ease-in-out infinite;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 .1em #fff;
+}
+
+@keyframes spinner-circle {
+    0% {
+        transform: rotate(-180deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+/* Extra small devices (phones, 600px and down) 
 @media only screen and (max-width: 600px) {
 	.input-field {
 		width: 300px!important;
@@ -92,17 +516,46 @@ html, body {
 	}
 }
 
+
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .todo {
+    font-size: 15px!important;
+  }
+  .msg-style {
+    font-size: 15px!important;
+  }
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
+@media only screen and (max-width: 992px) {
+	.cheat-sheet-container {
+		display: none;
+	}
+
+	.top-height {
+		margin-top: 50px!important;
+	}
+
+  .todo {
+    font-size: 20px!important; 
+  }
+
+  .msg-style {
+    font-size: 20px!important;
+  }
+/*  .footer {
+    bottom: unset;
+  }*/
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 	.login-input {
 	width: 200px;
+	}
 }
-
-} 
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
@@ -113,3 +566,47 @@ html, body {
 @media only screen and (min-width: 1200px) {
 
 }
+
+.to-do-card {
+  margin: 12px 0;
+  background: transparent!important;
+  color: #fff;
+}
+
+.to-do-card:hover {
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+.to-do-card * {
+  background: transparent!important;
+  color: #fff;
+}
+
+::-webkit-scrollbar
+{
+  width: 8px;  /* for vertical scrollbars */
+  height: 10px; /* for horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track
+{
+  background: rgba(0, 50, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb
+{
+  border-radius: 12px;
+  background: rgb(67,57,57);
+
+}
+
+.msg-style {
+  font-style: italic;
+}
+
+::placeholder {
+  opacity: 0.4;
+  color: #fff;
+  font-size: 20px;
+};
