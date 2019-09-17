@@ -80,7 +80,7 @@ const App = (props) => {
     	  </div>
       </div>
       <footer>
-        <small className="footer">copyrights reveresed @Qube</small>
+        <small className="footer">© copyrights 2019 reveresed @Qube</small>
       </footer>
       </div>
     </Router>
