@@ -10,6 +10,8 @@ html, body {
 }
 .logo {
   top: 159px!important;
+  width: 45px;
+  height: 45px;
 }
 
 .top-height {
@@ -359,12 +361,6 @@ nav.nav-bar {
 	width: 43px;
     height: 43px;
     border-radius: 50%;
-}
-
-.logo {
-	width: 45px;
-    height: 45px;
-    cursor: pointer;
 }
 
 .avatar-menu {

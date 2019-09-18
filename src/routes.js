@@ -1,33 +1,32 @@
 import {Todo, Goals, Home, Login, Signup, Reset, Archive} from './components';
-const routes = [
+export default [
   {
-	path: '/to-do',
-	component: Todo
+	  path: '/to-do',
+	  component: Todo
   },
   {
-	path: '/goals',
-	component: Goals
+	  path: '/goals',
+	  component: Goals
   },
   {
-	path: '/home',
-	component: Home,
-	exect: true
+	  path: '/home',
+	  component: Home,
+	  exect: true
   },
   {
-	path: '/login',
-	component: Login
+	  path: '/login',
+	  component: Login
   },
   {
-	path: '/signup',
-	component: Signup
+	  path: '/signup',
+	  component: Signup
   },
   {
-	path: '/reset',
-	component: Reset
+	  path: '/reset',
+	  component: Reset
   },
   {
-  	path: '/archive',
-  	component: Archive
-  }]
-
-export default routes;
+    path: '/archive',
+    component: Archive
+  }
+];

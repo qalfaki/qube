@@ -50,9 +50,7 @@ const App = (props) => {
         <button type="button" onClick={(e)=>setShowSideBar(!showSideBar)} className={showSideBar ? "menu-btn_active btn btn-dark btn-circle btn-xl": "btn btn-dark btn-circle btn-xl"}><span></span></button>
       </div>
       <div className="col-4">
-        <a href="/home">
-        <img  src={logo} alt='no img' className="logo mx-auto d-block"/>
-    </a>
+          <img src={logo} alt='no img' className="logo mx-auto d-block"/>
     </div>
     <div className="col-4">
     <span onClick={()=>setShowMenu(!showMenu)}>

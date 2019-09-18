@@ -1,0 +1,17 @@
+{
+  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
+  "rules": {
+    "users": {
+      "$user_id": {
+        ".write": "$user_id === auth.uid",
+        ".read": "$user_id === auth.uid"
+      }
+    },
+    "todos": { 
+    	"$user_id": {
+        ".write": "$user_id === auth.uid",
+        ".read": "$user_id === auth.uid"
+      }
+    }
+  }
+}
