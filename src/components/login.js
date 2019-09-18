@@ -31,7 +31,7 @@ const Login = (props) =>{
     	  	    <div className="btn-wrapper">
     	  	    <Link to="/signup" className="link">SIGNUP</Link> <span className="error-text">|</span> <Link to="/reset" className="link">RESET PASSWORD</Link>
     	  	    		<button type="button" onClick={(e)=>{
-                    setError(!emailValid && !passwordValid ? 'Invalid Credintials': !emailValid ? 'Invalid Email': !passwordValid ? 'password must be at least 6 characters':'');
+                    setError(!emailValid && !passwordValid ? 'Invalid Credentials': !emailValid ? 'Invalid Email': !passwordValid ? 'password must be at least 6 characters':'');
                     handleClick()
                   } } className="btn float-right auth-btns">LOGIN</button>
     	  	    	</div>
