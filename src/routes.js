@@ -9,9 +9,8 @@ export default [
 	  component: Goals
   },
   {
-	  path: '/home',
-	  component: Home,
-	  exect: true
+	  path: '/',
+	  component: Home
   },
   {
 	  path: '/login',
@@ -27,6 +26,6 @@ export default [
   },
   {
     path: '/archive',
-    component: Archive
+    component: Archive,
   }
 ];

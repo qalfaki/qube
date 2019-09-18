@@ -19,6 +19,7 @@ const Archive = (props) =>{
   		});
   		setTodos(items.reverse());
   		props.setIsLoading(false);
+      props.setShowSideBar(false);
 		});
 	}, [])
 	// dispatcher to uplay other states mutation
@@ -26,7 +27,7 @@ const Archive = (props) =>{
 
 	const handleClick = (items) =>{
 		dispatch({type: 'edit', item: items});
-		props.history.push('/home');
+		props.history.push('/');
 	}
 
   return (

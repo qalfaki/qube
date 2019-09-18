@@ -13,8 +13,7 @@ const Login = (props) =>{
       props.setIsLoading(true);
       props.firebase.signIn(email, password).then((authUser)=>{
         props.setIsLoading(false);
-        props.history.push('/home');
-        console.log(props)
+        props.history.push('/');
         props.stateHandler({name: authUser.user.displayName, uid: authUser.user.uid, photoURL: authUser.user.photoURL, email: authUser.user.email});
       }).catch((error)=>{
         props.setIsLoading(false);

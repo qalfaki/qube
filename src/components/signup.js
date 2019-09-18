@@ -46,7 +46,7 @@ const SignupBase = (props) =>{
                 photoURL: imageURL
             }).then((data)=>{
                 props.stateHandler({name: authUser.user.displayName, uid: authUser.user.uid, photoURL: authUser.user.photoURL, email: authUser.user.email});
-                props.history.push('/home');
+                props.history.push('/');
                 props.setIsLoading(false);
                 setName('');
                 setPassword('');

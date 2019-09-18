@@ -6,8 +6,9 @@ import { withFirebase } from './api';
 
 import {
   BrowserRouter as Router,
-  Route,
-  Redirect
+  Redirect,
+  Switch,
+  Route
 } from 'react-router-dom';
 import routes from './routes';
 import './App.css';
@@ -40,17 +41,18 @@ const App = (props) => {
 
   return (
     <Router>
+    <Switch>
     	<div className="App">
         {isLoading ? <span className='overlay'>
         <div className='spinner'><i></i></div></span>: null}
-
-
     {user ? <nav className="nav-bar fixed-top row co-12">
       <div className="col-4">
         <button type="button" onClick={(e)=>setShowSideBar(!showSideBar)} className={showSideBar ? "menu-btn_active btn btn-dark btn-circle btn-xl": "btn btn-dark btn-circle btn-xl"}><span></span></button>
       </div>
       <div className="col-4">
+        <a rel="nofollow" href="/">
           <img src={logo} alt='no img' className="logo mx-auto d-block"/>
+          </a>
     </div>
     <div className="col-4">
     <span onClick={()=>setShowMenu(!showMenu)}>
@@ -70,17 +72,15 @@ const App = (props) => {
           }>logout</a>
               </div>): (null)
         }
-     	  {routes.map((route, idx)=> <Route key={idx}  path={route.path} render={(props)=> <route.component isLoading = {isLoading} {...props} setIsLoading={setIsLoading} currentUser={user} stateHandler = {setUser}/>} />)}
-           <Route path='/'>
-            <Redirect  to="/home" />
-          </Route>
-          {user ? null: <Redirect path='/login' to='/login'/>}
+     	  {routes.map((route, idx)=> <Route basename={process.env.PUBLIC_URL} key={idx}  exact path={route.path} render={(props)=> <route.component setShowSideBar = {setShowSideBar} isLoading = {isLoading} {...props} setIsLoading={setIsLoading} currentUser={user} stateHandler = {setUser}/>} />)}
+          {user ? null: <Redirect to='/login'/>}
     	  </div>
       </div>
       <footer>
         <small className="footer">© copyrights 2019 reveresed @Qube</small>
       </footer>
       </div>
+      </Switch>
     </Router>
   )
 }
