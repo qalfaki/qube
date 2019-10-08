@@ -14,11 +14,23 @@ html, body {
   height: 45px;
 }
 
-.top-height {
-    margin-top: 159px!important;
-    margin-left: 0!important;
-    margin-right: 0!important;
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 }
+
+.column-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 365px;
+}
+
+.column-wrapper img {
+  align-self: center;
+}
+
 
 .footer {
   position: fixed;
@@ -39,7 +51,7 @@ html, body {
   font-size: 18px;
   line-height: 21px;
   /* identical to box height */
-  width: 356px!important;
+  width: auto!important;
   letter-spacing: 0.67px;
   margin-top: 22px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -62,6 +74,7 @@ html, body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
+
 .link {
 	font-style: italic;
   font-weight: 300;
@@ -83,10 +96,12 @@ a.link:focus {
   color: #ccc!important;
   text-decoration: none!important;
 }
-.btn-wrapper {
-	padding-top: 20px;
+.column-wrapper .btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+	padding-top: 8px;
 }
-
 
 /*TO-DO styles*/
 
@@ -155,16 +170,6 @@ a.link:focus {
   line-height: 2rem;
   width: 500px;
 }
-
-input {
-  border: none;
-  background: transparent;
-  color: white;
-  font-size: 1.4rem;
-  outline: none;
-  width: 100%;
-}
-
 
 /* Side bar styles */
 
@@ -376,7 +381,7 @@ nav.nav-bar {
 .error-text {
 	font-size: 20px;
 	color: #fff;
-  width: 365px;
+  /*width: 365px;*/
 }
 
 .signup-form-wrapper {
